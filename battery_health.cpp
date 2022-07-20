@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include <bits/stdc++.h> 
 #include "battery_health.h"
 
 void SendToController :: sendMessage(BreachType breachType) {
