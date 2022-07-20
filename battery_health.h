@@ -5,7 +5,7 @@
 #include "email.h"
 #include "controller.h"
 
-#define TEMPERATURE_ALERT "Hi, the temperature is"
+//#define TEMPERATURE_ALERT "Hi, the temperature is"
 
 typedef enum {
   NORMAL = 0,
@@ -29,7 +29,7 @@ typedef struct {
   char brand[48];
 } BatteryCharacter;
 
-std::vector<std::string> batteryBreach = {"normal", "too low", "too high"};
+//std::vector<std::string> batteryBreach = {"normal", "too low", "too high"};
 
 class Cooling {
   public:
