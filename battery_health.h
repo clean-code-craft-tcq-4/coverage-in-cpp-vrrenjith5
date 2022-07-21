@@ -14,18 +14,18 @@ typedef enum {
   TOO_HIGH
 } BreachType;
 
-class Cooling {
+class BatteryCoolingType {
 
   public:
 
-    Cooling(){}
-    ~Cooling(){}
+    BatteryCoolingType(){}
+    ~BatteryCoolingType(){}
     virtual int getLowerLimit() = 0;
     virtual int getUpperLimit() = 0;
     BreachType inferBreach(double value);
 };
 
-class PassiveCooling : public Cooling {
+class PassiveCooling : public BatteryCoolingType {
 
   protected:
 
@@ -43,7 +43,7 @@ class PassiveCooling : public Cooling {
     int getUpperLimit()override;
 };
 
-class HighActiveCooling : public Cooling {
+class HighActiveCooling : public BatteryCoolingType {
 
   protected:
 
@@ -61,7 +61,7 @@ class HighActiveCooling : public Cooling {
     int getUpperLimit()override;
 };
 
-class MediumActiveCooling : public Cooling {
+class MediumActiveCooling : public BatteryCoolingType {
 
   protected:
 
@@ -79,16 +79,16 @@ class MediumActiveCooling : public Cooling {
     int getUpperLimit()override;
 };
 
-class CommunicationChannel {
+class BatteryAlertTarget {
 
   public:
 
-    CommunicationChannel(){}
-    ~CommunicationChannel(){}
+    BatteryAlertTarget(){}
+    ~BatteryAlertTarget(){}
     virtual void sendMessage(BreachType breachType) = 0;
 };
 
-class SendToController : public CommunicationChannel {
+class SendToController : public BatteryAlertTarget {
 
   public:
 
@@ -97,7 +97,7 @@ class SendToController : public CommunicationChannel {
     void sendMessage(BreachType breachType) override;
 };
 
-class SendToEmail : public CommunicationChannel {
+class SendToEmail : public BatteryAlertTarget {
 
   private:
 
@@ -116,12 +116,12 @@ class BatteryHealth {
 
   private:
 
-    Cooling *coolingType;
-    CommunicationChannel *alertTarget;
+    BatteryCoolingType *batteryCoolingType;
+    BatteryAlertTarget *batteryAlertTarget;
 
   public:
 
-    BreachType checkAndAlert(Cooling* cooling, CommunicationChannel* communicationChannel, double temperatureInC);
+    BreachType checkAndAlert(BatteryCoolingType* coolingType, BatteryAlertTarget* alertTarget, double temperatureInC);
 };
 
 #endif /* __BATTERY_HEALTH_H_ */
