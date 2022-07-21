@@ -9,48 +9,60 @@ MediumActiveCooling mediumActiveCooling;
 SendToEmail sendToEmail;
 SendToController sendToController;
 BatteryHealth batteryHealth;
+BreachType breachType;
 
-TEST_CASE("PassiveCooling normal, send via email") {
-BreachType breachType = batteryHealth.checkAndAlert(&passiveCooling, &sendToEmail, 30);
+TEST_CASE("PassiveCooling breach, send via email") {
+breachType = batteryHealth.checkAndAlert(&passiveCooling, &sendToEmail, 30);
 REQUIRE(breachType == NORMAL);
-}
-
-TEST_CASE("PassiveCooling too low, send via email") {
-BreachType breachType = batteryHealth.checkAndAlert(&passiveCooling, &sendToEmail, -1);
+breachType = batteryHealth.checkAndAlert(&passiveCooling, &sendToEmail, -1);
 REQUIRE(breachType == TOO_LOW);
-}
-
-TEST_CASE("PassiveCooling too high, send via controller") {
-BreachType breachType = batteryHealth.checkAndAlert(&passiveCooling, &sendToController, 36);
+breachType = batteryHealth.checkAndAlert(&passiveCooling, &sendToEmail, 36);
 REQUIRE(breachType == TOO_HIGH);
 }
 
-TEST_CASE("HighActiveCooling normal, send via email") {
-BreachType breachType = batteryHealth.checkAndAlert(&highActiveCooling, &sendToController, 45);
+TEST_CASE("PassiveCooling breach, send via controller") {
+breachType = batteryHealth.checkAndAlert(&passiveCooling, &sendToController, 30);
 REQUIRE(breachType == NORMAL);
-}
-
-TEST_CASE("HighActiveCooling too low, send via email") {
-BreachType breachType = batteryHealth.checkAndAlert(&highActiveCooling, &sendToController, -1);
+breachType = batteryHealth.checkAndAlert(&passiveCooling, &sendToController, -1);
 REQUIRE(breachType == TOO_LOW);
-}
-
-TEST_CASE("HighActiveCooling too high, send via controller") {
-BreachType breachType = batteryHealth.checkAndAlert(&highActiveCooling, &sendToEmail, 46);
+breachType = batteryHealth.checkAndAlert(&passiveCooling, &sendToController, 36);
 REQUIRE(breachType == TOO_HIGH);
 }
 
-TEST_CASE("MediumActiveCooling normal, send via email") {
-BreachType breachType = batteryHealth.checkAndAlert(&mediumActiveCooling, &sendToEmail, 39);
+
+TEST_CASE("HighActiveCooling breach, send via email") {
+breachType = batteryHealth.checkAndAlert(&highActiveCooling, &sendToEmail, 45);
 REQUIRE(breachType == NORMAL);
-}
-
-TEST_CASE("MediumActiveCooling too low, send via email") {
-BreachType breachType = batteryHealth.checkAndAlert(&mediumActiveCooling, &sendToController, -1);
+breachType = batteryHealth.checkAndAlert(&highActiveCooling, &sendToEmail, -1);
 REQUIRE(breachType == TOO_LOW);
-}
-
-TEST_CASE("MediumActiveCooling too high, send via controller") {
-BreachType breachType = batteryHealth.checkAndAlert(&mediumActiveCooling, &sendToEmail, 41);
+breachType = batteryHealth.checkAndAlert(&highActiveCooling, &sendToEmail, 46);
 REQUIRE(breachType == TOO_HIGH);
 }
+
+TEST_CASE("HighActiveCooling breach, send via controller") {
+breachType = batteryHealth.checkAndAlert(&highActiveCooling, &sendToController, 45);
+REQUIRE(breachType == NORMAL);
+breachType = batteryHealth.checkAndAlert(&highActiveCooling, &sendToController, -1);
+REQUIRE(breachType == TOO_LOW);
+breachType = batteryHealth.checkAndAlert(&highActiveCooling, &sendToController, 46);
+REQUIRE(breachType == TOO_HIGH);
+}
+
+TEST_CASE("MediumActiveCooling breach, send via email") {
+breachType = batteryHealth.checkAndAlert(&mediumActiveCooling, &sendToEmail, 39);
+REQUIRE(breachType == NORMAL);
+breachType = batteryHealth.checkAndAlert(&mediumActiveCooling, &sendToEmail, -1);
+REQUIRE(breachType == TOO_LOW);
+breachType = batteryHealth.checkAndAlert(&mediumActiveCooling, &sendToEmail, 41);
+REQUIRE(breachType == TOO_HIGH);
+}
+
+TEST_CASE("MediumActiveCooling breach, send via controller") {
+breachType = batteryHealth.checkAndAlert(&mediumActiveCooling, &sendToController, 39);
+REQUIRE(breachType == NORMAL);
+breachType = batteryHealth.checkAndAlert(&mediumActiveCooling, &sendToController, -1);
+REQUIRE(breachType == TOO_LOW);
+breachType = batteryHealth.checkAndAlert(&mediumActiveCooling, &sendToController, 41);
+REQUIRE(breachType == TOO_HIGH);
+}
+
