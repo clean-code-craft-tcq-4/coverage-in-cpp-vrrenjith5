@@ -8,11 +8,14 @@ typedef struct {
 }EmailParameters;
 
 class Email{
+
   private:
+
 	bool isEmailIdValid(const std::string& eMailId);
 	EmailParameters emailParameters;
 
   public:
+
     Email(){}
     ~Email(){}
     void configureEmail(EmailParameters configureEmailParameters);

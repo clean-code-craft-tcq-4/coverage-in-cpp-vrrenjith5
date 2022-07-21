@@ -32,7 +32,9 @@ typedef struct {
 
 
 class Cooling {
+
   public:
+
     Cooling(){}
     ~Cooling(){}
     virtual int getLowerLimit() = 0;
@@ -43,10 +45,12 @@ class Cooling {
 class PassiveCooling : public Cooling {
 
   protected:
+
     int lowerLimit;
     int upperLimit;
 
   public:
+
     PassiveCooling(){
       lowerLimit = 0;
       upperLimit = 35;
@@ -59,10 +63,12 @@ class PassiveCooling : public Cooling {
 class HighActiveCooling : public Cooling {
 
   protected:
+
     int lowerLimit;
     int upperLimit;
 
   public:
+
     HighActiveCooling(){
       lowerLimit = 0;
       upperLimit = 45;
@@ -75,10 +81,12 @@ class HighActiveCooling : public Cooling {
 class MediumActiveCooling : public Cooling {
 
   protected:
+
     int lowerLimit;
     int upperLimit;
 
   public:
+
     MediumActiveCooling(){
       lowerLimit = 0;
       upperLimit = 40;
@@ -89,39 +97,48 @@ class MediumActiveCooling : public Cooling {
 };
 
 class CommunicationChannel {
+
   public:
+
     CommunicationChannel(){}
     ~CommunicationChannel(){}
     virtual void sendMessage(BreachType breachType) = 0;
 };
 
 class SendToController : public CommunicationChannel {
+
   public:
+
     SendToController(){}
     ~SendToController(){}
     void sendMessage(BreachType breachType) override;
 };
 
 class SendToEmail : public CommunicationChannel {
+
   private:
+
     Email batteryHealthEmail;
     EmailParameters batteryHealthEmailParameters;
     void constructMessage(BreachType breachType);
 
   public:
+
     SendToEmail(){}
     ~SendToEmail(){}
     void sendMessage(BreachType breachType)override;
 };
 
 class BatteryHealth {
+
   private:
+
     Cooling *coolingType;
     CommunicationChannel *alertTarget;
 
   public:
 
-    void checkAndAlert(Cooling* cooling, CommunicationChannel* communicationChannel, double temperatureInC);
+    BreachType checkAndAlert(Cooling* cooling, CommunicationChannel* communicationChannel, double temperatureInC);
 };
 
 #endif /* __BATTERY_HEALTH_H_ */

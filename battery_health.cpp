@@ -1,6 +1,4 @@
 #include <iostream>
-#include <bits/stdc++.h>
-
 #include "battery_health.h"
 
 void SendToController :: sendMessage(BreachType breachType) {
@@ -54,9 +52,10 @@ int MediumActiveCooling :: getUpperLimit() {
   return upperLimit;
 }
 
-void BatteryHealth :: checkAndAlert (Cooling* cooling, CommunicationChannel* communicationChannel, double temperatureInC) {
+BreachType BatteryHealth :: checkAndAlert (Cooling* cooling, CommunicationChannel* communicationChannel, double temperatureInC) {
   this->coolingType = cooling;
-  BreachType breachType = coolingType->inferBreach(temperatureInC);
   this->alertTarget = communicationChannel;
+  BreachType breachType = coolingType->inferBreach(temperatureInC);
   alertTarget->sendMessage(breachType);
+  return breachType;
 }
