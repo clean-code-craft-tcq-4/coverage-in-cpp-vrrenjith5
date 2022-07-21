@@ -52,10 +52,10 @@ void SendToEmail :: sendMessage(BreachType breachType) {
    batteryHealthEmail.sendEmail();
 }
 
-BreachType BatteryHealth :: checkAndAlert (BatteryCoolingType* coolingType, BatteryAlertTarget* alertTarget, double temperatureInC) {
+BreachType BatteryHealth :: checkAndAlert (BatteryCoolingType* coolingType, BatteryAlertTarget* alertTarget, double temperatureInCelsius) {
   this->batteryCoolingType = coolingType;
   this->batteryAlertTarget = alertTarget;
-  BreachType breachType = batteryCoolingType->inferBreach(temperatureInC);
+  BreachType breachType = batteryCoolingType->inferBreach(temperatureInCelsius);
   batteryAlertTarget->sendMessage(breachType);
   return breachType;
 }
