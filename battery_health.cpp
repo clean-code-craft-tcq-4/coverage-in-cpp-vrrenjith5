@@ -1,5 +1,6 @@
 #include <iostream>
-#include <bits/stdc++.h> 
+#include <bits/stdc++.h>
+
 #include "battery_health.h"
 
 void SendToController :: sendMessage(BreachType breachType) {
@@ -10,7 +11,7 @@ void SendToController :: sendMessage(BreachType breachType) {
 void SendToEmail :: constructMessage(BreachType breachType) {
    batteryHealthEmailParameters.eMailId = "vrrenjith5@gmail.com";
    batteryHealthEmailParameters.eMailSubjectLine = "battery temperature monitor";
-   //batteryHealthEmailParameters.eMailMessage = TEMPERATURE_ALERT + batteryBreach[breachType];
+   batteryHealthEmailParameters.eMailMessage = TEMPERATURE_ALERT + batteryBreach[breachType];
 }
 
 void SendToEmail :: sendMessage(BreachType breachType) {
