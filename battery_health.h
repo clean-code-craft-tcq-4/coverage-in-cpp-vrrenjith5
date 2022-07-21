@@ -14,23 +14,6 @@ typedef enum {
   TOO_HIGH
 } BreachType;
 
-typedef enum {
-  PASSIVE_COOLING = 0,
-  HI_ACTIVE_COOLING,
-  MED_ACTIVE_COOLING
-} CoolingType;
-
-typedef enum {
-  TO_CONTROLLER = 0,
-  TO_EMAIL
-} AlertTarget;
-
-typedef struct {
-  CoolingType coolingType;
-  char brand[48];
-} BatteryCharacter;
-
-
 class Cooling {
 
   public:
