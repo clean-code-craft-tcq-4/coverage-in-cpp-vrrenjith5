@@ -2,13 +2,14 @@
 #include "battery_health.h"
 
 BreachType BatteryCoolingType :: inferBreach(double value) {
+  BreachType breachType = NORMAL;
   if(value < getLowerLimit()) {
-    return TOO_LOW;
+    breachType = TOO_LOW;
   }
   if(value > getUpperLimit()) {
-    return TOO_HIGH;
+    breachType = TOO_HIGH;
   }
-  return NORMAL;
+  return breachType;
 }
 
 int PassiveCooling :: getLowerLimit() {
@@ -53,15 +54,15 @@ void SendToEmail :: sendMessage(BreachType breachType) {
 }
 
 bool BatteryHealth :: checkAndAlert (BatteryCoolingType* coolingType, BatteryAlertTarget* alertTarget, double temperatureInCelsius) {
-  bool isAlertRequired = false;
+  bool isAlertMessageSend = false;
   this->batteryCoolingType = coolingType;
   this->batteryAlertTarget = alertTarget;
   BreachType breachType = batteryCoolingType->inferBreach(temperatureInCelsius);
 
   if (breachType != NORMAL) {
     batteryAlertTarget->sendMessage(breachType);
-    isAlertRequired = true;
+    isAlertMessageSend = true;
   }
-  return isAlertRequired;
+  return isAlertMessageSend;
 }
 
