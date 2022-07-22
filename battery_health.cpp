@@ -52,11 +52,16 @@ void SendToEmail :: sendMessage(BreachType breachType) {
    batteryHealthEmail.sendEmail();
 }
 
-BreachType BatteryHealth :: checkAndAlert (BatteryCoolingType* coolingType, BatteryAlertTarget* alertTarget, double temperatureInCelsius) {
+bool BatteryHealth :: checkAndAlert (BatteryCoolingType* coolingType, BatteryAlertTarget* alertTarget, double temperatureInCelsius) {
+  bool isAlertRequired = false;
   this->batteryCoolingType = coolingType;
   this->batteryAlertTarget = alertTarget;
   BreachType breachType = batteryCoolingType->inferBreach(temperatureInCelsius);
-  batteryAlertTarget->sendMessage(breachType);
-  return breachType;
+
+  if (breachType != NORMAL) {
+    batteryAlertTarget->sendMessage(breachType);
+    isAlertRequired = true;
+  }
+  return isAlertRequired;
 }
 

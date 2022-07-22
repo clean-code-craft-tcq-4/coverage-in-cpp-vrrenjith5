@@ -121,7 +121,7 @@ class BatteryHealth {
 
   public:
 
-    BreachType checkAndAlert(BatteryCoolingType* coolingType, BatteryAlertTarget* alertTarget, double temperatureInCelsius);
+    bool checkAndAlert(BatteryCoolingType* coolingType, BatteryAlertTarget* alertTarget, double temperatureInCelsius);
 };
 
 #endif /* __BATTERY_HEALTH_H_ */
